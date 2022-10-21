@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dpl
+spec:
+  minReadySeconds: 15
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        khaos-enabled: "false"
+    spec:
+      containers:
+      - name: khaos-monkey
+        image: dagandersen/khaos-monkey:july13
+        resources:
+          requests:
+            cpu: "0"
+            memory: "0"
+          limits:
+            cpu: "250m"
+            memory: "1Gi"
+        args: ["fixed", "1" ]
+        env:
+        - name: TARGET_NAMESPACES
+          value: "default"
+        - name: RUST_LOG
+          value: "info"

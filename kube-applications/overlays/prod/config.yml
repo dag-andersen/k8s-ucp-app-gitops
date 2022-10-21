@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: kustomize-replacements-prod
+data:
+  env: prod
+  cluster-name: gcp-k8s-prod

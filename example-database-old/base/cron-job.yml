@@ -1,0 +1,41 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: cron-job
+  namespace: default
+spec:
+  concurrencyPolicy: Allow
+  failedJobsHistoryLimit: 1
+  schedule: "0/1 * * * *"
+  jobTemplate:
+    metadata:
+      name: test
+    spec:
+      template:
+        spec:
+          restartPolicy: OnFailure
+          containers:
+          - image: postgres:12
+            name: postgres
+            command: ['psql']
+            args: ['-c', 'SELECT current_database();']
+            env:
+            - name: PGDATABASE
+              value: postgres
+            - name: PGHOST
+              valueFrom:
+                secretKeyRef:
+                  name: database-example-db-conn
+                  key: endpoint
+            - name: PGUSER
+              valueFrom:
+                secretKeyRef:
+                  name: database-example-db-conn
+                  key: username
+            - name: PGPASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: database-example-db-conn
+                  key: password
+            - name: PGPORT
+              value: "5432"

@@ -1,0 +1,33 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  name: dpl
+spec:
+  minReadySeconds: 5
+  replicas: 4
+  strategy:
+    canary:
+      steps:
+      - setWeight: 25
+      - pause: {duration: 3m}
+  template:
+    metadata:
+      annotations:
+        linkerd.io/inject: enabled
+    spec:
+      containers:
+      - name: echo-server
+        image: "dagandersen/echo-server"
+        resources:
+          requests:
+            cpu: 0
+            memory: 0
+          limits:
+            cpu: "250m"
+            memory: "1Gi"
+        ports:
+        - name: http
+          containerPort: 3030
+        env:
+        - name: VERSION
+          value: "unknown"

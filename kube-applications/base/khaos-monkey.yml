@@ -1,0 +1,19 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: khaos-monkey
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  project: applications
+  destination:
+    name: in-cluster
+    namespace: default
+  source:
+    repoURL: https://github.com/dag-andersen/cloud-infra-deployment
+    targetRevision: HEAD
+    path: ./khaos-monkey/overlays/env
+  syncPolicy:
+    automated:
+      prune: true

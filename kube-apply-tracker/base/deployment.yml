@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dpl
+spec:
+  minReadySeconds: 15
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    spec:
+      containers:
+      - name: k8s-update-tracker
+        image: dagandersen/kube-apply-tracker
+        resources:
+          requests:
+            cpu: 0
+            memory: 0
+          limits:
+            cpu: "250m"
+            memory: "1Gi"

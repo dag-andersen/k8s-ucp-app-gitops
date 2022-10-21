@@ -1,0 +1,30 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  name: dpl
+spec:
+  minReadySeconds: 5
+  replicas: 2
+  strategy:
+    canary:
+      steps:
+      - setWeight: 50
+      - pause: {duration: 3m}
+  template:
+    metadata:
+      annotations:
+        linkerd.io/inject: enabled
+    spec:
+      containers:
+      - name: echo-client
+        image: "dagandersen/echo-client"
+        resources:
+          requests:
+            cpu: 0
+            memory: 0
+          limits:
+            cpu: "250m"
+            memory: "1Gi"
+        env:
+        - name: "ADDRESS"
+          value: "http://echo-server-argo-rollout-svc:3030/hello"

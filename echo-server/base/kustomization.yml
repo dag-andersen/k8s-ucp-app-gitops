@@ -1,0 +1,8 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namePrefix: echo-server-
+commonLabels:
+  app: echo-server
+resources:
+- deployment.yml
+- service.yml

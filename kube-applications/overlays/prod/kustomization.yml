@@ -1,0 +1,37 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namePrefix: prod-
+resources:
+- ../../base
+- config.yml
+
+replacements:
+- source:
+    kind: ConfigMap
+    fieldPath: data.env
+  targets: 
+  - select:
+      kind: Application
+    fieldPaths: 
+    - spec.source.path
+    options:
+      delimiter: '/'
+      index: 3
+- source:
+    kind: ConfigMap
+    fieldPath: data.cluster-name
+  targets: 
+  - select:
+      kind: Application
+    fieldPaths: 
+    - spec.destination.name
+
+patchesJson6902:
+- target:
+    version: v1alpha1
+    kind: Application
+    name: nginx
+  patch: |-
+    - op: replace
+      path: /spec/source/helm/parameters/0/value
+      value: "34.155.85.111"

@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dpl
+spec:
+  template:
+    spec:
+      containers:
+        - image: ghcr.io/eficode-academy/flask-quotes-backend:release
+          name: flask-quotes-backend
+          ports:
+            - containerPort: 5000
+          resources: {}
+          env:
+            - name: db_name
+              value: postgres
+            - name: db_host
+              valueFrom:
+                secretKeyRef:
+                  name: gcp-database-conn
+                  key: endpoint
+            - name: db_port
+              value: "5432"
+            - name: db_user
+              valueFrom:
+                secretKeyRef:
+                  name: gcp-database-conn
+                  key: username
+            - name: db_password
+              valueFrom:
+                secretKeyRef:
+                  name: gcp-database-conn
+                  key: password

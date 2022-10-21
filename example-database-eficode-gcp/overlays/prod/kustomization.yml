@@ -1,0 +1,15 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+- ../../base/backend
+- ../../base/frontend
+
+patchesJson6902:
+- target:
+    version: v1
+    kind: Ingress
+    name: ingress
+  patch: |-
+    - op: replace
+      path: /spec/rules/0/host
+      value: "gcp.db.prod.dagandersen.com"

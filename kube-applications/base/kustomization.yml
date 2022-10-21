@@ -1,0 +1,15 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+- argo-rollouts.yml
+- nginx.yml
+#- kube-apply-tracker.yml
+#- khaos-monkey.yml
+- echo-client.yml
+- echo-client-argo-rollout.yml
+- echo-server.yml
+- echo-server-argo-rollout.yml
+- example-ingress.yml
+# - example-database.yml
+- example-database-eficode-aws.yml
+- example-database-eficode-gcp.yml

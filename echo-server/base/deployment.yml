@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dpl
+spec:
+  minReadySeconds: 5
+  replicas: 4
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1        # how many pods we can add at a time
+      maxUnavailable: 0  # maxUnavailable define how many pods can be unavailable
+  template:
+    spec:
+      containers:
+      - name: echo-server
+        image: "dagandersen/echo-server"
+        resources:
+          requests:
+            cpu: 0
+            memory: 0
+          limits:
+            cpu: "250m"
+            memory: "1Gi"
+        ports:
+        - name: http
+          containerPort: 3030
+        env:
+        - name: VERSION
+          value: "unknown"

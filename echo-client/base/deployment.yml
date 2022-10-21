@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dpl
+spec:
+  minReadySeconds: 15
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    spec:
+      containers:
+      - name: echo-client
+        image: dagandersen/echo-client
+        resources:
+          requests:
+            cpu: 0
+            memory: 0
+          limits:
+            cpu: "250m"
+            memory: "1Gi"
+        env:
+        - name: "ADDRESS"
+          value: "http://echo-server-svc:3030/hello"
