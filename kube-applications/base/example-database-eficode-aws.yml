@@ -11,6 +11,6 @@ spec:
     name: in-cluster
     namespace: default
   source:
-    repoURL: https://github.com/dag-andersen/cloud-infra-deployment
+    repoURL: https://github.com/dag-andersen/k8s-ucp-app-gitops
     targetRevision: HEAD
     path: ./example-database-eficode-aws/overlays/env
