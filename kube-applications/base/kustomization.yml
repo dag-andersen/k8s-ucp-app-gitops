@@ -3,6 +3,7 @@ kind: Kustomization
 resources:
 - argo-rollouts.yml
 - nginx.yml
+- external-dns.yml 
 #- kube-apply-tracker.yml
 #- khaos-monkey.yml
 - echo-client.yml
