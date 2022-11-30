@@ -12,5 +12,5 @@ resources:
 - echo-server-argo-rollout.yml
 - example-ingress.yml
 # - example-database.yml
-- example-database-eficode-aws.yml
-- example-database-eficode-gcp.yml
+- quote-app-with-database-aws.yml
+- quote-app-with-database-gcp.yml

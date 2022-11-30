@@ -13,6 +13,6 @@ spec:
           resources: {}
           env:
             - name: backend_host
-              value: "example-database-eficode-aws-backend-svc"
+              value: "quote-app-with-database-aws-backend-svc"
             - name: backend_port
               value: "5000"

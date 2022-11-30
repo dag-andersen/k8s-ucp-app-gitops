@@ -1,8 +1,8 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-namePrefix: example-database-eficode-gcp-frontend-
+namePrefix: quote-app-with-database-gcp-frontend-
 commonLabels:
-  app: example-database-eficode-gcp-frontend
+  app: quote-app-with-database-gcp-frontend
 resources:
 - frontend-deployment.yml
 - frontend-service.yml
