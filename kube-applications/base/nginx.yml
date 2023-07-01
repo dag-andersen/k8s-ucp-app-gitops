@@ -3,6 +3,8 @@ kind: Application
 metadata:
   name: nginx
   namespace: argocd
+  labels:
+    helm-chart: true
   finalizers:
   - resources-finalizer.argocd.argoproj.io
 spec:

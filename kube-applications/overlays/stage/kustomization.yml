@@ -2,26 +2,27 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namePrefix: stage-
 resources:
-- ../../base
-- config.yml
+  - ../../base
+  - config.yml
 
 replacements:
-- source:
-    kind: ConfigMap
-    fieldPath: data.env
-  targets: 
-  - select:
-      kind: Application
-    fieldPaths: 
-    - spec.source.path
-    options:
-      delimiter: '/'
-      index: 3
-- source:
-    kind: ConfigMap
-    fieldPath: data.cluster-name
-  targets: 
-  - select:
-      kind: Application
-    fieldPaths: 
-    - spec.destination.name
+  - source:
+      kind: ConfigMap
+      fieldPath: data.env
+    targets:
+      - select:
+          kind: Application
+          labelSelector: "helm-chart!=true"
+        fieldPaths:
+          - spec.source.path
+        options:
+          delimiter: "/"
+          index: 3
+  - source:
+      kind: ConfigMap
+      fieldPath: data.cluster-name
+    targets:
+      - select:
+          kind: Application
+        fieldPaths:
+          - spec.destination.name
